@@ -1,25 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import D from "./D";
+import A from "./A";
+import Home from "./home";
+import asyncCom from "./AsyncComponent";
+import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 
 function App() {
+  const AsyncComponentC = asyncCom(() => import("./C"));
+  const AsyncComponentB = asyncCom(() => import("./B"));
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/a" exact component={A} />
+          <Route path="/d" exact component={D} />
+          <Route path="/b" exact component={AsyncComponentB} />
+          <Route path="/c" exact component={AsyncComponentC} />
+        </Switch>
+      </BrowserRouter>
+    </React.Fragment>
   );
 }
 
